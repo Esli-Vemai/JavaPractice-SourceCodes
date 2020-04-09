@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface ISaveable {
 	
-	List<String> read();
+	List<String> readFrom();
+	void writeTo(List<String> list);
 }
