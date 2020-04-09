@@ -12,51 +12,50 @@ import com.java.practice.interfaz.ICharacter;
  * @author esliv
  *
  */
-public class Player implements ICharacter{
+public class Monster implements ICharacter{
 	private String name;
 	private double health;
-	private String weapon;
+	private String ability;
 	private double hitPower;
 	
-
 	/**
 	 * @param name
-	 * @param weapon
+	 * @param ability
 	 * @param hitPower
 	 */
-	public Player(String name, String weapon, double hitPower) {
+	public Monster(String name, String ability, double hitPower) {
 		super();
 		this.name = name;
-		this.weapon = weapon;
+		this.ability = ability;
 		this.hitPower = hitPower;
 		this.health = defaultHealth;
 	}
-	
-	
-	@Override
-	public List<String> writeTo() {
-		List<String> list = new ArrayList<>();
-		list.add(0, this.name);
-		list.add(1, Double.toString(this.health));
-		list.add(2, this.weapon);
-		list.add(3, Double.toString(this.hitPower));
-		
-		return list;
-	}
 
+	
 	@Override
 	public void readFrom(List<String> list) {
 		if(!list.isEmpty() && list != null) {
 			this.name = list.get(0);
-			this.health = Double.valueOf(list.get(1));
-			this.weapon = list.get(2);
+			this.health = Double.parseDouble(list.get(1));
+			this.ability = list.get(2);
 			this.hitPower = Double.valueOf(list.get(3));
 		} else {
 			System.out.println("List is empty");
 		}
 		
 	}
-	
+
+
+	@Override
+	public List<String> writeTo() {
+		List<String> list = new ArrayList<>();
+		list.add(0, this.name);
+		list.add(1, String.valueOf(this.health));
+		list.add(2, this.ability);
+		list.add(3, Double.toString(this.hitPower));
+		return list;
+	}
+
 
 	public String getName() {
 		return name;
@@ -66,8 +65,8 @@ public class Player implements ICharacter{
 		return health;
 	}
 
-	public String getWeapon() {
-		return weapon;
+	public String getAbility() {
+		return ability;
 	}
 
 	public double getHitPower() {
@@ -76,7 +75,7 @@ public class Player implements ICharacter{
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", health=" + health + ", weapon=" + weapon + ", hitPower=" + hitPower + "]";
+		return String.format("Monster {name=%s, health=%s, ability=%s, hitPower=%s}", name, health, ability, hitPower);
 	}
 	
 	
