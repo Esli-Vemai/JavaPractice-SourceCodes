@@ -21,7 +21,8 @@ public class GameCharacterMain {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		
 		// Create a simple interface that allows an object to be saved to some sort of
 		// storage medium.
 		// The exact type of medium is not known to the interface (nor to the classes
