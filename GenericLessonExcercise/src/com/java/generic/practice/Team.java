@@ -19,6 +19,16 @@ public class Team<T extends Player> implements Comparable<Team<T>>{
 
 	}
 	
+	
+	public Team(String name, int won, int lost, int draw) {
+		super();
+		this.name = name;
+		this.won = won;
+		this.lost = lost;
+		this.draw = draw;
+	}
+
+
 	public boolean addPlayer(T player) {
 		if(members.contains(player)) {
 			System.out.println("Player is already in the team.");
