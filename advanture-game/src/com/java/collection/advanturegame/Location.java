@@ -3,6 +3,10 @@ package com.java.collection.advanturegame;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author esliv
+ *
+ */
 public class Location {
 	private final int locationId;
 	private final String description;
@@ -12,6 +16,7 @@ public class Location {
 		this.locationId = locationId;
 		this.description = description;
 		this.exits = new HashMap<>();
+		this.exits.put("Q", 0);
 	}
 	
 	
@@ -33,10 +38,14 @@ public class Location {
 	}
 
 
+	
+	/**
+	 * @return a new HashMap
+	 * In certain scenarios, it is useful to return a new Map 
+	 * (with the contents of the old man) to make sure that the old Map is 
+	 *  not been modified illegally.
+	 */
 	public Map<String, Integer> getExits() {
-		//In certain scenarios, it is useful to return a new Map 
-		//(with the contents of the old man) to make sure that the old Map is not been modified
-		// illegally.
 		return new HashMap<>(exits) ;
 	}
 	
