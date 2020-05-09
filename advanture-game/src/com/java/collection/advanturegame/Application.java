@@ -21,21 +21,16 @@ public class Application {
 		locations.get(1).addExits("E", 3);
 		locations.get(1).addExits("S", 4);
 		locations.get(1).addExits("N", 5);
-//	    locations.get(1).addExits("Q", 0);
 
 		locations.get(2).addExits("N", 5);
-//	    locations.get(2).addExits("Q", 0);
 
 		locations.get(3).addExits("W", 1);
-//	    locations.get(3).addExits("Q", 0);
 
 		locations.get(4).addExits("N", 1);
 		locations.get(4).addExits("W", 2);
-//	    locations.get(4).addExits("Q", 0);
 
 		locations.get(5).addExits("S", 1);
 		locations.get(5).addExits("W", 2);
-//	    locations.get(5).addExits("Q", 0);
 
 		int loc = 1;
 		while (true) {
@@ -48,14 +43,68 @@ public class Application {
 			for (String key : exits.keySet()) {
 				System.out.print(key + ", ");
 			}
+			System.out.println("\r");
 			String direction = scanner.nextLine().toUpperCase();
-			if(exits.containsKey(direction)) {
+			if (direction.length() > 1) {
+				// My implementation
+				/*
+				 * String[] strArray = direction.split(" "); 
+				 * for (String key: strArray) {
+				 * 	direction = processInput(key); 
+				 * 		if(containsKey(direction)) break;
+				 * 
+				 * }
+				 */
+
+				// Tim's implementation
+				Map<String, String> vocabulary = new HashMap<>();
+				vocabulary.put("NORTH", "N");
+				vocabulary.put("WEST", "W");
+				vocabulary.put("EAST", "E");
+				vocabulary.put("SOUTH", "S");
+				vocabulary.put("QUIT", "Q");
+				String[] strArray = direction.split(" ");
+				for (String key : strArray) {
+					if (vocabulary.containsKey(key)) {
+						direction = vocabulary.get(key);
+						break;
+					}
+				}
+			}
+
+			if (exits.containsKey(direction)) {
 				loc = exits.get(direction);
 			} else {
 				System.out.println("You cannot go in that direction");
 			}
-			
+
 		}
+	}
+
+	// for my implementation
+	private static boolean containsKey(String key) {
+		return ("W".equals(key) || "E".equals(key) || "N".equals(key) || "S".equals(key) || "Q".equals(key));
+	}
+
+	// for my implementation
+	private static String processInput(String direction) {
+		if ("W".equals(direction) || "E".equals(direction) || "N".equals(direction) || "S".equals(direction)
+				|| "Q".equals(direction)) {
+			return direction;
+		} else if ("WEST".equals(direction)) {
+			return "W";
+		} else if ("EAST".equals(direction)) {
+			return "E";
+		} else if ("NORTH".equals(direction)) {
+			return "W";
+		} else if ("SOUTH".equals(direction)) {
+			return "S";
+		} else if ("QUIT".equals(direction)) {
+			return "Q";
+		} else {
+			return "X";
+		}
+
 	}
 
 }
