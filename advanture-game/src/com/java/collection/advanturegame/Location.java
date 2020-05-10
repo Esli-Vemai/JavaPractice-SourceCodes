@@ -12,21 +12,20 @@ public class Location {
 	private final String description;
 	private final Map<String, Integer> exits;
 	
-	public Location(int locationId, String description) {
+	public Location(int locationId, String description, Map<String, Integer> exits) {
 		this.locationId = locationId;
 		this.description = description;
-		this.exits = new HashMap<>();
+		this.exits = new HashMap<>(exits);
 		this.exits.put("Q", 0);
 	}
 	
 	
-	public void addExits(String direction, int location) {
-		if(!exits.containsKey(direction)) {
-			exits.put(direction, location);
-		} else {
-			System.out.println(direction + " has already been added. ");
-		}
-	}
+	/* Removed to make the class immutable
+	 * 
+	 * public void addExits(String direction, int location) {
+	 * if(!exits.containsKey(direction)) { exits.put(direction, location); } else {
+	 * System.out.println(direction + " has already been added. "); } }
+	 */
 
 
 	public int getLocationId() {
