@@ -91,6 +91,14 @@ public class MainApplication {
 		for (HeavenlyBody moon : allMoons) {
 			System.out.println("\t" + moon.getName());
 		}
+		
+		planets.forEach(a -> System.out.println(" " + a.getName() + " " + a.getOrbitalDuration()));
+		HeavenlyBody neptune = new HeavenlyBody("Neptune", 300);
+		solarSystem.put(neptune.getName(), neptune);
+		planets.add(neptune);
+		System.out.println("==============");
+		System.out.println("Two Neptune obj will not be printed if we override both equals and hashcode() method");
+		planets.forEach(a -> System.out.println(" " + a.getName() + " " + a.getOrbitalDuration()));
 
 	}
 
