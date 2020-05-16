@@ -4,15 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HeavenlyBody {
-	private final String name;
 	private final double orbitalDuration;
 	private final Set<HeavenlyBody> satellites;
-	private final Type bodyType;
+	private final Key mapKey;
 	
 	public HeavenlyBody(String name, double orbitalDuration, Type bodyType) {
-		this.name = name;
 		this.orbitalDuration = orbitalDuration;
-		this.bodyType = bodyType;
+		this.mapKey = new Key(name, bodyType);
 		this.satellites = new HashSet<>();
 	}
 
@@ -20,14 +18,8 @@ public class HeavenlyBody {
 		return this.satellites.add(moon);
 	}
 	
-	
-	public Type getBodyType() {
-		return bodyType;
-	}
-
-
-	public String getName() {
-		return name;
+	public Key getMapKey() {
+		return mapKey;
 	}
 
 	public double getOrbitalDuration() {
@@ -38,6 +30,18 @@ public class HeavenlyBody {
 		return new HashSet<>(this.satellites);
 	}
 
+	public static Key makeKey(String name, Type bodyType) {
+		return new Key(name, bodyType);
+	}
+	
+	@Override
+	public String toString() {
+		return this.getMapKey().getName() + ", " + orbitalDuration + ", " + this.getMapKey().getBodyType();
+	}
+	
+	
+	
+	//======================================================================//
 	
 	/**
 	 *	We should override both equals() and hashcode() when using object 
@@ -66,9 +70,7 @@ public class HeavenlyBody {
 	
 		if(obj != null || obj instanceof HeavenlyBody) {
 			HeavenlyBody theBody = ((HeavenlyBody)obj);
-			if(this.getName().equals(theBody.getName())) {
-				return this.getBodyType() == theBody.getBodyType();
-			}
+			return this.getMapKey().equals(theBody.getMapKey());
 		} 
 			return false;
 		
@@ -92,15 +94,75 @@ public class HeavenlyBody {
 		
 											// this part is required because as per our challenge, we are determining 
 											// uniqueness based on designation and not name alone
-		return this.getName().hashCode() + 51 + this.getBodyType().hashCode();
+		return this.getMapKey().hashCode();
 	}
 
-	@Override
-	public String toString() {
-		return name + ", " + orbitalDuration + ", " + bodyType;
+	
+	
+	
+	//======================================================================//
+	
+	
+	
+	
+	/**
+	 * This class is for use in the Map solarsystem. Currently we have the name of the body as key (of type String)
+	 * which is not strictly valid coz it is not unique. name + bodytype is a unique combination and should be 
+	 * the key of the the Map. We could manually concatenate them and add as key(still of type String). But the better 
+	 * way is to combine them to a inner class as this class does.
+	 * 
+	 * The class should be final coz we need to make it immutable for it be be used as key.
+	 * Also, overriding equals() and hashCode() is required.
+	 * @author esliv
+	 *
+	 */
+	public static final class Key {
+		private final String name;
+		private final Type bodyType;
+		
+		private Key(String name, Type bodyType) {
+			this.name = name;
+			this.bodyType = bodyType;
+		}
+		
+		
+
+		public String getName() {
+			return name;
+		}
+
+
+
+		public Type getBodyType() {
+			return bodyType;
+		}
+
+
+
+		@Override
+		public String toString() {
+			return "Key: " + name + ", " + bodyType;
+		}
+
+		@Override
+		public int hashCode() {
+			return this.name.hashCode() + 51 + this.bodyType.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			Key argkey = ((Key)obj);
+			if(this.getName().equals(argkey.getName())) {
+				return this.getBodyType() == argkey.getBodyType();
+			}
+			
+			return false;
+		}
+		
+		
+		
+		
 	}
-	
-	
 	
 	
 }

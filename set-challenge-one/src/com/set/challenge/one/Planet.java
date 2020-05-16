@@ -3,14 +3,14 @@ package com.set.challenge.one;
 public final class Planet extends HeavenlyBody{
 
 	public Planet(String name, double orbitalDuration) {
-		super(name, orbitalDuration, Type.valueOf("PLANET"));
+		super(name, orbitalDuration, Type.PLANET);
 		
 	}
 	
 	
 	@Override
 	public boolean addSatellite(HeavenlyBody moon) {
-		if(moon.getBodyType() == Type.MOON) {
+		if(moon.getMapKey().getBodyType() == Type.MOON) {
 		// or if (this.getBodyType == moon.getBodyType)
 			return super.addSatellite(moon);
 		} else {
