@@ -1,5 +1,6 @@
 package com.set.bulk.operation;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +8,11 @@ import java.util.Set;
 public class BulkOperationsDemo {
 
 	public static void main(String[] args) {
+		long when = Instant.now().toEpochMilli() / 1000;
+		long creationTime = System.currentTimeMillis() / 1000;
+		System.out.println("when: " + when +  "\ncreationTime:" + creationTime);
+		
+		
 		Set<Integer> squares = new HashSet<>();
 		Set<Integer> cubes = new HashSet<>();
 		for(int a = 1; a < 50; a++) {
