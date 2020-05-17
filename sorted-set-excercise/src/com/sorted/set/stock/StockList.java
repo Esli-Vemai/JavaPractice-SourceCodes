@@ -9,7 +9,7 @@ public class StockList {
 	private final Map<String, StockItem> stockList;
 
 	public StockList() {
-		this.stockList = new HashMap<>();
+		this.stockList = new LinkedHashMap<>();
 	}
 
 	
