@@ -1,16 +1,36 @@
 package com.java.io.firstexe;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by timbuchalka on 2/04/2016.
- */
 public class Locations implements Map<Integer, Location> {
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
 
+    public static void main(String[] args) {
+        FileWriter locfile = null;
+        try {
+            locfile = new FileWriter("locations.txt");
+            for(Location location: locations.values()) {
+                locfile.write(location.getLocationID() + ", " + location.getDescription() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("IOException occurred");
+        } finally {
+            System.out.println("In finally block");
+            try {
+                if(locfile != null) {
+                    System.out.println("attempting to close locfile");
+                    locfile.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     static {
         Map<String, Integer> tempExit = new HashMap<String, Integer>();
         locations.put(0, new Location(0, "You are sitting in front of a computer learning Java",null));
