@@ -10,27 +10,35 @@ import java.util.Set;
 public class Locations implements Map<Integer, Location> {
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
 
-    public static void main(String[] args) {
-        FileWriter locfile = null;
+    public static void main(String[] args) throws IOException{
+        //https://docs.oracle.com/javase/7/docs/technotes/guides/language/try-with-resources.html
+    // Using try-with-resource
+   try(FileWriter locFile = new FileWriter("locations.txt");
+        FileWriter dicFile = new FileWriter("directions.txt")) {
+        for (Location loc : locations.values()) {
+            locFile.write(loc.getLocationID() + ", " + loc.getDescription() + "\n");
+            for (String dir : loc.getExits().keySet()) {
+                dicFile.write(loc.getLocationID() + "," + dir + "," + loc.getExits().get(dir) + "\n");
+            }
+        }
+   }
+   }
+
+
+       /* FileWriter locfile = null;
         try {
             locfile = new FileWriter("locations.txt");
             for(Location location: locations.values()) {
                 locfile.write(location.getLocationID() + ", " + location.getDescription() + "\n");
             }
-        } catch (IOException e) {
-            System.out.println("IOException occurred");
         } finally {
             System.out.println("In finally block");
-            try {
                 if(locfile != null) {
                     System.out.println("attempting to close locfile");
                     locfile.close();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
-    }
+    }*/
     static {
         Map<String, Integer> tempExit = new HashMap<String, Integer>();
         locations.put(0, new Location(0, "You are sitting in front of a computer learning Java",null));
